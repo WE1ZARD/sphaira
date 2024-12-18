@@ -925,7 +925,7 @@ App::App(const char* argv0) {
     if (App::GetThemeShuffleEnable() && m_theme_meta_entries.size()) {
         theme_path = m_theme_meta_entries[randomGet64() % m_theme_meta_entries.size()].ini_path;
     } else {
-        ini_gets("config", "theme", "romfs:/themes/abyss_theme.ini", theme_path, sizeof(theme_path), CONFIG_PATH);
+        ini_gets("config", "theme", "romfs:/themes/magic_theme.ini", theme_path, sizeof(theme_path), CONFIG_PATH);
     }
     LoadTheme(theme_path);
 
