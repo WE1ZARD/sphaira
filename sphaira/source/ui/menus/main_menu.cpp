@@ -23,7 +23,7 @@ namespace sphaira::ui::menu::main {
 namespace {
 
 auto InstallUpdate(ProgressBox* pbox, const std::string url, const std::string version) -> bool {
-    static fs::FsPath zip_out{"/switch/sphaira/cache/update.zip"};
+    static fs::FsPath zip_out{"/config/sphaira/cache/update.zip"};
     constexpr auto chunk_size = 1024 * 512; // 512KiB
 
     fs::FsNativeSd fs;
@@ -146,7 +146,7 @@ auto InstallUpdate(ProgressBox* pbox, const std::string url, const std::string v
 } // namespace
 
 MainMenu::MainMenu() {
-    DownloadMemoryAsync("https://api.github.com/repos/ITotalJustice/sphaira/releases/latest", "", [this](std::vector<u8>& data, bool success){
+    DownloadMemoryAsync("https://api.github.com/repos/we1zard/sphaira/releases/latest", "", [this](std::vector<u8>& data, bool success){
         m_update_state = UpdateState::None;
         auto json = yyjson_read((const char*)data.data(), data.size(), 0);
         R_UNLESS(json, false);
@@ -196,16 +196,16 @@ MainMenu::MainMenu() {
             SidebarEntryArray::Items language_items;
             language_items.push_back("Auto"_i18n);
             language_items.push_back("English");
-            language_items.push_back("Japanese");
-            language_items.push_back("French");
-            language_items.push_back("German");
-            language_items.push_back("Italian");
-            language_items.push_back("Spanish");
-            language_items.push_back("Chinese");
-            language_items.push_back("Korean");
-            language_items.push_back("Dutch");
-            language_items.push_back("Portuguese");
-            language_items.push_back("Russian");
+            language_items.push_back("Japanese"_i18n);
+            language_items.push_back("French"_i18n);
+            language_items.push_back("German"_i18n);
+            language_items.push_back("Italian"_i18n);
+            language_items.push_back("Spanish"_i18n);
+            language_items.push_back("Chinese"_i18n);
+            language_items.push_back("Korean"_i18n);
+            language_items.push_back("Dutch"_i18n);
+            language_items.push_back("Portuguese"_i18n);
+            language_items.push_back("Russian"_i18n);
 
             options->AddHeader("Header"_i18n);
             options->AddSpacer();
@@ -262,9 +262,9 @@ MainMenu::MainMenu() {
             options->Add(std::make_shared<SidebarEntryBool>("Logging"_i18n, App::GetLogEnable(), [this](bool& enable){
                 App::SetLogEnable(enable);
             }, "Enabled"_i18n, "Disabled"_i18n));
-            options->Add(std::make_shared<SidebarEntryBool>("Replace hbmenu on exit"_i18n, App::GetReplaceHbmenuEnable(), [this](bool& enable){
-                App::SetReplaceHbmenuEnable(enable);
-            }, "Enabled"_i18n, "Disabled"_i18n));
+            //options->Add(std::make_shared<SidebarEntryBool>("Replace hbmenu on exit"_i18n, App::GetReplaceHbmenuEnable(), [this](bool& enable){
+            //    App::SetReplaceHbmenuEnable(enable);
+            //}, "Enabled"_i18n, "Disabled"_i18n));
 
             options->Add(std::make_shared<SidebarEntryCallback>("Misc"_i18n, [this](){
                 auto options = std::make_shared<Sidebar>("Misc Options"_i18n, Sidebar::Side::LEFT);

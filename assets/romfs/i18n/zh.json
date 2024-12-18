@@ -111,5 +111,7 @@
   "Load Default": "加载默认值",
   "No Internet": "网络未连接",
   "[Applet Mode]": "[小程序模式]",
-  "Language": "语言"
+  "Language": "语言",
+  "Auto":"自动",
+  "Chinese":"中文"
 }

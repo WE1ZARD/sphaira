@@ -27,8 +27,8 @@
 namespace sphaira::ui::menu::appstore {
 namespace {
 
-constexpr fs::FsPath REPO_PATH{"/switch/sphaira/cache/appstore/repo.json"};
-constexpr fs::FsPath CACHE_PATH{"/switch/sphaira/cache/appstore"};
+constexpr fs::FsPath REPO_PATH{"/config/sphaira/cache/appstore/repo.json"};
+constexpr fs::FsPath CACHE_PATH{"/config/sphaira/cache/appstore"};
 constexpr auto URL_BASE = "https://switch.cdn.fortheusers.org";
 constexpr auto URL_JSON = "https://switch.cdn.fortheusers.org/repo.json";
 constexpr auto URL_POST_FEEDBACK = "http://switchbru.com/appstore/feedback";
@@ -386,7 +386,7 @@ auto UninstallApp(ProgressBox* pbox, const Entry& entry) -> bool {
 // 3. parse manifest and unzip everything to placeholder
 // 4. move everything from placeholder to normal location
 auto InstallApp(ProgressBox* pbox, const Entry& entry) -> bool {
-    static const fs::FsPath zip_out{"/switch/sphaira/cache/appstore/temp.zip"};
+    static const fs::FsPath zip_out{"/config/sphaira/cache/appstore/temp.zip"};
     constexpr auto chunk_size = 1024 * 512; // 512KiB
 
     fs::FsNativeSd fs;
@@ -845,10 +845,10 @@ void EntryMenu::ShowChangelogAction() {
     m_show_changlog ^= 1;
 
     if (m_show_changlog) {
-        SetAction(Button::L, Action{"Details"_i18n, func});
+        SetAction(Button::L, Action{"Details", func});
         m_detail_changelog = m_changelog;
     } else {
-        SetAction(Button::L, Action{"Changelog"_i18n, func});
+        SetAction(Button::L, Action{"Changelog", func});
         m_detail_changelog = m_details;
     }
 }
@@ -859,7 +859,7 @@ void EntryMenu::UpdateOptions() {
     };
 
     const auto install = [this](){
-        App::Push(std::make_shared<ProgressBox>("Installing "_i18n + m_entry.title, [this](auto pbox){
+        App::Push(std::make_shared<ProgressBox>("Installing " + m_entry.title, [this](auto pbox){
             return InstallApp(pbox, m_entry);
         }, [this](bool success){
             if (success) {
@@ -871,7 +871,7 @@ void EntryMenu::UpdateOptions() {
     };
 
     const auto uninstall = [this](){
-        App::Push(std::make_shared<ProgressBox>("Uninstalling "_i18n + m_entry.title, [this](auto pbox){
+        App::Push(std::make_shared<ProgressBox>("Uninstalling " + m_entry.title, [this](auto pbox){
             return UninstallApp(pbox, m_entry);
         }, [this](bool success){
             if (success) {
@@ -935,11 +935,11 @@ auto toLower(const std::string& str) -> std::string {
 	return lower;
 }
 
-Menu::Menu(const std::vector<NroEntry>& nro_entries) : MenuBase{"AppStore"}, m_nro_entries{nro_entries} {
+Menu::Menu(const std::vector<NroEntry>& nro_entries) : MenuBase{"AppStore"_i18n}, m_nro_entries{nro_entries} {
     fs::FsNativeSd fs;
-    fs.CreateDirectoryRecursively("/switch/sphaira/cache/appstore/icons");
-    fs.CreateDirectoryRecursively("/switch/sphaira/cache/appstore/banners");
-    fs.CreateDirectoryRecursively("/switch/sphaira/cache/appstore/screens");
+    fs.CreateDirectoryRecursively("/config/sphaira/cache/appstore/icons");
+    fs.CreateDirectoryRecursively("/config/sphaira/cache/appstore/banners");
+    fs.CreateDirectoryRecursively("/config/sphaira/cache/appstore/screens");
 
     // m_span = m_entries;
 
