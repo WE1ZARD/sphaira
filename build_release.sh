@@ -18,4 +18,5 @@ cp -r build/MinSizeRel/*.nro out/switch/sphaira/sphaira.nro
 cp -r out/switch/sphaira/sphaira.nro out/hbmenu.nro
 cd out
 zip -r9 sphaira.zip switch
+zip -r9 hbmenu.zip hbmenu.nro
 cd ../..

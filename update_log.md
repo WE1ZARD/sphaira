@@ -1,4 +1,5 @@
 ## 0.4.0
+- 默认中文, 移除无用项, 默认主题:Magic, 补充缺失的中文部分
 - Improve Portuguese translation by @ninstar in #1
 - use translatation from native Chinese by @WE1ZARD in #3
 - Added Italian translation by @LNLenost in #8
