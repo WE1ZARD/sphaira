@@ -40,7 +40,7 @@ bool init(long index) {
     ON_SCOPE_EXIT( romfsExit() );
 
     u64 languageCode;
-    SetLanguage setLanguage = SetLanguage_ENGB;
+    SetLanguage setLanguage = SetLanguage_ZHCN;
 
     switch (index) {
         case 0: // auto
@@ -75,7 +75,7 @@ bool init(long index) {
         case SetLanguage_PT: lang_name = "pt"; break;
         case SetLanguage_RU: lang_name = "ru"; break;
         case SetLanguage_ZHTW: lang_name = "zh"; break;
-        default: lang_name = "en"; break;
+        default: lang_name = "zh"; break;
     }
 
     const fs::FsPath sdmc_path = "/config/sphaira/i18n/" + lang_name + ".json";
