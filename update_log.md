@@ -1,0 +1,19 @@
+## 0.4.0
+- Improve Portuguese translation by @ninstar in #1
+- use translatation from native Chinese by @WE1ZARD in #3
+- Added Italian translation by @LNLenost in #8
+- Improve french language by @shadow2560 in #10
+- Chinese translation by @do-kiss in #12
+- Japanese Translation by @ITotalJustice in #11
+- i18n: improve de locale by @acuteaura in #16
+- New icon by @ninstar in #18
+- Add OLED Black Theme by @Sanrax in #20
+- Korean translation by @Yorunokyujitsu in #19
+- Update fr.json by @Battosai94 in #17
+- Added updater
+- Clip text in filebrowser #13
+- Fix inconsistent sound effects #6
+- Added time to the main menu
+- Fix sphaira not exiting to home menu whilst launched as hbmenu
+- Add support for loading translations locally in /config/sphaira/i18n/
+- Add option to install an nro forwader via the filebrowser

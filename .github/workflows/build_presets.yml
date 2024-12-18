@@ -2,34 +2,51 @@ name: build
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches:
+      - theme
+  workflow_dispatch:
+
+env:
+  BUILD_SH: build_release.sh
 
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        preset: [Release, RelWithDebInfo, MinSizeRel, Debug]
-    runs-on: ${{ matrix.os }}
-    container: devkitpro/devkita64:latest
+  Build:
+    name: "Release"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    container: devkitpro/devkita64
 
     steps:
-    - uses: actions/checkout@v3
-
-    # fetch latest cmake
-    - uses: lukka/get-cmake@latest
-
-    - name: Configure CMake
-      run: |
-        cmake --preset ${{ matrix.preset }}
-
-    - name: Build
-      run: cmake --build --preset ${{ matrix.preset }} --parallel 4
-
-    - uses: actions/upload-artifact@master
+    - name: 'Checkout'
+      uses: actions/checkout@v4
       with:
-        name: sphaira-${{ matrix.preset }}
-        path: build/${{ matrix.preset }}/sphaira.nro
+        fetch-depth: 0
+
+    - name: 'Get REPO Name'
+      run: |
+        echo "REPO=$(echo $GITHUB_REPOSITORY | sed 's/WE1ZARD\///')" >> $GITHUB_ENV
+
+    - name: 'Get Version'
+      run: |
+        echo "version=$(sed -n 1p ./update_log.md | sed "s/##\s//")" >> $GITHUB_ENV
+
+    - name: 'Set Version'
+      run: |
+        sed -i "s/{beta}/${{ env.version }}/g" ./sphaira/CMakeLists.txt
+
+    - name: 'Build'
+      run: |
+        chmod +x $BUILD_SH
+        ./$BUILD_SH
+
+    - name: 'Publish to target repository'
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_name: wei2ard/AutoFetch
+        repo_token: ${{ secrets.TOKEN }}
+        file: ./out/sphaira.zip
+        tag: latest
+        overwrite: true
+        prerelease: false
